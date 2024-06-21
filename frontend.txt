@@ -1,17 +1,29 @@
-:
-fSFSDFSDFSFSF
-FSD
-FSDFSDFS
-FSDF
-SD
-FSD
-F
-SDF
-S
-FD
-SF
+def snake_to_camel_case(self, data):
+        """
+        This function converts keys from snake case to camel case in a given dictionary.
+        
+        Parameters:
+        - data: type Dict: A dictionary with keys in snake case.
 
+        Returns:
+        A new dictionary with keys converted to camel case.
+        """
+        def to_camel_case(snake_str):
+            components = snake_str.split('_')
+            return components[0] + ''.join(x.title() for x in components[1:])
 
-fjfjfjfrfrfjrifjifjrfj
-nifrifjjffjifirnnknkrnkrnk
-sdirect from githib
+        if isinstance(data, dict):
+            camel_case_data = {}
+            for key, value in data.items():
+                new_key = to_camel_case(key)
+                if isinstance(value, dict):
+                    camel_case_data[new_key] = self.snake_to_camel_case(value)
+                elif isinstance(value, list):
+                    camel_case_data[new_key] = [self.snake_to_camel_case(item) if isinstance(item, dict) else item for item in value]
+                else:
+                    camel_case_data[new_key] = value
+            return camel_case_data
+        elif isinstance(data, list):
+            return [self.snake_to_camel_case(item) if isinstance(item, dict) else item for item in data]
+        else:
+            return data
